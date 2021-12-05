@@ -1,0 +1,104 @@
+{% extends "layouts/baseP.html" %}
+
+{% block title %} Suicide Test 123 {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<style>
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+</style>
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+					
+                        <!--[ Doctors ] start-->
+                        <div class="col-xl-8 col-md-6">
+                            <div class="card Recent-Users">
+                                <div class="card-header">
+                                    <h5>Online Suicide Test</h5>
+									{% if response != '' %}
+										<br><br>
+										<div class="alert">
+											<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+											<strong>{{response}}</strong> ! [Some Text here].
+										</div>
+									{% endif %}
+                                </div>
+                                <div class="card-block px-0 py-3">
+                                    <div class="form-wrapper align-center">
+										<form method="POST" class="form sign-up">
+											{%csrf_token%}
+											Some Text about the test Here	
+											
+											<div class="input-group">
+											<br><br>
+											<i class="bx bxs-user"></i>
+												Question 1 : 
+											<br><br>
+											<textarea id="" name="answer1" rows="5" cols="80">Your Answer Here
+											</textarea>
+										  </div>
+										  <div class="input-group">
+											<br><br>
+											<i class="bx bxs-user"></i>
+												Question 2 : 
+											<br><br>
+											<textarea id="" name="answer2" rows="5" cols="80">Your Answer Here
+											</textarea>
+										  </div>
+										  <div class="input-group">
+											<br><br>
+											<i class="bx bxs-user"></i>
+												Question 3 : 
+											<br><br>
+											<textarea id="" name="answer3" rows="5" cols="80">Your Answer Here
+											</textarea>
+										  </div>
+										  <br><br><br>
+										  <button class="label theme-bg text-white f-12" name="suicide_test" value="suicide_test">Submit Now</button>
+											
+										</form>
+									</div> 
+                                </div>
+                            </div>
+                        </div>
+                        <!--[ Doctors ] end-->
+						
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

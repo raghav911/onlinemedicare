@@ -1,0 +1,64 @@
+{% extends "layouts/baseP.html" %}
+
+{% block title %} Patient's Dashboard {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}    
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+						<h3>Edit Profile</h3>
+						<br>
+						<div class="col align-center flex-col sign-up">
+							<div class="form-wrapper align-center">
+									{% for pts in pt %}
+										{% if pts.user_id == patient_id %}						
+											<form method="POST" enctype="multipart/form-data" class="form sign-up">
+											{%csrf_token%}
+											<br><br>
+											<div class="input-group">
+												<i class="bx bxs-user"></i>
+												UserName:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+												<input name="username" type="text" value={{pts.name}} />
+											</div>
+								  <br>
+								  <div class="input-group">
+									<i class="bx bx-mail-send"></i>
+									Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+									<input name="email" type="email"  value={{pts.email}}/>
+								  </div>
+								  <br>
+								  <div class="input-group">	
+									<i class="bx bx-phone"></i>
+									Mobile Number:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+									<input name="mobilenumber" type="text" 	 value={{pts.mobileNumber}}/>
+								  </div>
+								  <br>
+								  <div class="input-group">
+									<i class="bx bxs-lock-alt"></i>
+									Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+									<input name="pw1" type="password" placeholder="Password" />
+								  </div>
+								  <br>
+								  <button name="editProfileP" value="editProfileP">Submit</button>
+								</form>
+								  			{% endif %}																				
+										{% endfor %}                           							
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

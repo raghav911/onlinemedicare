@@ -1,0 +1,126 @@
+{% extends "layouts/baseD.html" %}
+
+{% block title %} Chat {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="/static/assets/plugins/chart-morris/css/morris.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <div class="card-block">
+								<div class="row d-flex align-items-center">
+									{% for pts in pt %}
+										{% if pts.user_id == to_id %}
+											<div class="col-9">
+												<h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather text-c-green f-30 m-r-10"></i>{{pts.name}}</h3>
+											</div> 
+										{% endif %}											
+									{% endfor %}                           
+								</div>
+							</div>                    	
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+                    <!-- [ Chat ] start -->
+                    <div class="col-xl-6">
+						<div class="col s9">
+							<div class="card">
+								<p class="clock"></p>
+								<p class="count"></p>
+								<script>
+								  function displayTime() {
+									let date = new Date();
+									let time = date.toLocaleTimeString();
+									document.querySelector('.clock').textContent = time;
+								  }
+
+								  displayTime();
+								  const createClock = setInterval(displayTime, 1000);
+								</script>
+								<div class="section grey lighten-3" style="height: 68vh; padding: 5px; overflow-y: scroll">
+									{% block messages %}
+										{% for chats in chat %}
+											{% if chats.from_id == from_id and chats.to_id == to_id %}
+												<h5 style="color:Blue;" align="right">{{chats.message}}</h5>
+											{% endif %}											
+											{% if chats.to_id == from_id and chats.from_id == to_id %}
+												<h5 style="color:Red;" align="left">{{chats.message}}</h5>
+											{% endif %}											
+										{% endfor %}                           							
+									{% endblock %}
+								</div>
+								<br><br>
+								<form id="chat-box" class="form-group {% block hide %}hide{% endblock %}" method="post">
+									{% csrf_token %}
+									<div class="row">
+										<table border="0" width="100%">
+											<tr><td>
+											<div class="col s11">
+												<div class="input-field">
+													<input size="45" width="100%" id="id_message" name="message" type="text" placeholder="Type your message..">
+													<input type="hidden" name="doctor_id" value="{{doctor_id}}" />
+													<input type="hidden" name="patient_id" value="{{patient_id}}" />
+												</div>
+											</div>
+											</td>
+											<td align="left">	
+											<div class="col s1" style="line-height: 20px">
+											<button ><i class="material-icons">send</i></button>
+											</div>
+											</td></tr>
+										</table>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+                    
+                    <!-- [ Chat ] end -->
+                </div>
+                <!-- [ Main Content ] end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+i=0;
+setInterval(function(){
+    if(i%2 == 0)
+        $('#board').fadeOut('slow')
+    else
+        $('#board').fadeIn('slow')    
+    i++;
+}, 2000)
+</script>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+    <script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>
+    <script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>
+    <script src="/static/assets/js/pages/chart-morris-custom.js"></script>
+
+{% endblock javascripts %}

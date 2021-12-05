@@ -1,0 +1,44 @@
+{% extends "layouts/baseP.html" %}
+
+{% block title %} Video {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="/static/assets/plugins/chart-morris/css/morris.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+						<h3>Zoom Meeting Details</h3><br><br>
+                        <div class="page-header-title">
+                            <div class="card-block">
+								<a href="{{join_URL}}">Your Zoom Meeting Link : {{join_URL}}</a>
+								<br><br>
+								Your Meeting Password:{{meetingPassword}}
+								<br><br>
+								Also Email sent successfully to both Doctor and Patient.
+							</div>                    	
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

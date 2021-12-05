@@ -1,0 +1,130 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{%static '/role/login.css'%}" />
+    <title>Doctor Login</title>
+  </head>
+  <body>
+    <!-- Container -->
+    <div class="container" id="container">
+      <!-- Row -->
+      <div class="row">
+        <!-- Sign Up -->
+        <div class="col align-center flex-col sign-up">
+          <div class="form-wrapper align-center">
+            <form method="POST" enctype="multipart/form-data" class="form sign-up">
+				{%csrf_token%}
+              <div class="input-group">
+                <i class="bx bxs-user"></i>
+                <input name="username" type="text" placeholder="Username" />
+              </div>
+			  <div class="input-group">
+                <i class="bx bxs-user"></i>
+                <input name="name" type="text" placeholder="Full Name" />
+              </div>
+              <div class="input-group">
+                <i class="bx bx-mail-send"></i>
+                <input name="email" type="email" placeholder="Email" />
+              </div>
+			  <div class="input-group">
+                <i class="bx bx-phone"></i>
+                <input name="mobilenumber" type="number" placeholder="Mobile Number" />
+              </div>
+              <div class="input-group">
+                <i class="bx bxs-home"></i>
+                <input name="wa" type="text" placeholder="Working Address" />
+              </div>
+              <div class="input-group">
+                <i class="bx bxs-lock-alt"></i>
+                <input name="pw1" type="password" placeholder="Password" />
+              </div>
+			  <div class="input-group">
+                <i class="bx bxs-lock-alt"></i>
+                <input name="spc" type="text" placeholder="Specialization" />
+              </div>
+              <div class="input-group">
+                <i class="bx bxs-lock-alt"></i>
+                <input name="fee" type="number" placeholder="Fees" />
+              </div>
+              <button name="signupD" value="register">Sign Up</button>
+              <p>
+                <span>Already have an account?</span>
+                <b id="sign-in">Sign in here</b>
+              </p>
+            </form>
+		</div>
+        </div>
+        <!-- End Sign Up -->
+        <!-- Sign In -->
+        <div class="col align-center flex-col sign-in">
+          <div class="form-wrapper align-center">
+            <form method="POST" class="form sign-in">
+			{%csrf_token%}
+              <div class="input-group">
+                <i class="bx bxs-user"></i>
+                <input name="username" type="text" placeholder="Username" />
+              </div>
+              <div class="input-group">
+                <i class="bx bxs-lock-alt"></i>
+                <input name="password" type="password" placeholder="Password" />
+              </div>
+              <button name="loginD" value="lg">Sign in</button>
+              <p>
+                <b>Forgot password?</b>
+              </p>
+              <p>
+                <span> Don't have an account? </span>
+                <b id="sign-up">Sign up here</b>
+              </p>
+            </form>
+		</div>
+        </div>
+        <!-- End Sign In -->
+      </div>
+      <!-- End Row -->
+      <!-- Content Section -->
+      <div class="row content-row">
+        <!-- Sign In Content -->
+        <div class="col align-items flex-col">
+          <div class="text sign-in">
+            <h2>Welcome Back</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae et
+              cumque consectetur illo accusamus impedit eos ut. Eos, odit
+              facilis.
+            </p>
+          </div>
+          <div class="img sign-in">
+            <img src="{% static '/role/d3.svg'%}" alt="" />
+          </div>
+        </div>
+
+        <!-- Sign Up Content -->
+        <div class="col align-items flex-col">
+          <div class="img sign-up">
+            <img src="{% static 'role/d2.svg' %}" alt="" />
+          </div>
+          <div class="text sign-up">
+            <h2>Join with us</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quae et
+              cumque consectetur illo accusamus impedit eos ut. Eos, odit
+              facilis.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Container -->
+
+    <!-- Script -->
+    <script src="{% static 'role/login.js' %}"></script>
+  </body>
+</html>

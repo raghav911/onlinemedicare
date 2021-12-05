@@ -1,0 +1,57 @@
+{% extends "layouts/baseD.html" %}
+{% block title %} Doctor's Dashboard {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+                        <!--[ Upload Image ] start-->
+                        <div class="col-xl-8 col-md-6">
+                            <div class="card Recent-Users">
+                                <div class="card-header">
+                                    <h5>Select your Prescription to upload</h5>
+                                </div>
+                                <div class="card-block px-0 py-3">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <tbody>
+											<form method="post" enctype="multipart/form-data">  
+												{% csrf_token %}   
+												<input type="file" name="upload" accept=".doc, .docx, .pdf, .txt , .jpg , .png">
+												<br>	<br>	 <br>												
+												<button type="submit">Upload</button>  
+											</form>  
+										  
+											{% if img_obj %}  
+												<h3>Succesfully uploaded : {{img_obj.caption}}</h3>  
+												<img src="{{ img_obj.image.url}}" alt="connect" style="max-height:300px">  
+											{% endif %}  
+											</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--[ Upload Image ] end-->
+						
+                        
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

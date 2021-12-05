@@ -1,0 +1,82 @@
+{% extends "layouts/baseD.html" %}
+
+{% block title %} Doctors's Dashboard {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}    
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+						<h3>Edit Profile</h3>
+						<br>
+						<div class="col align-center flex-col sign-up">
+							<div class="form-wrapper align-center">
+									{% for dts in dt %}
+										{% if dts.user_id == doctor_id %}						
+											<form method="POST" enctype="multipart/form-data" class="form sign-up">
+											{%csrf_token%}
+											<br><br>
+											<div class="input-group">
+												<i class="bx bxs-user"></i>
+												UserName:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+												<input name="username" type="text" value={{dts.name}} />
+											</div>
+											<br>
+								  <div class="input-group">
+									<i class="bx bx-mail-send"></i>
+									Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+									<input name="email" type="email"  value={{dts.email}}/>
+								  </div>
+								  <br>
+								  <div class="input-group">
+									<i class="bx bx-phone"></i>
+									Mobile Number:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+									<input name="mobilenumber" type="text"  value={{dts.mobileNumber}}/>
+								  </div>
+								  <br>
+								  <div class="input-group">
+									<i class="bx bxs-home"></i>
+									Working Address:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+									<input name="wa" type="text"  value={{dts.workingAddress}}/>
+								  </div>
+								  <br>
+								  <div class="input-group">
+									<i class="bx bxs-lock-alt"></i>
+									Password:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+									<input name="pw1" type="password" placeholder="Password" />
+								  </div>
+								  <br>
+								  <div class="input-group">
+									<i class="bx bxs-lock-alt"></i>
+									Specialization:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+									<input name="spc" type="text" value={{dts.specialization}}/>
+								  </div>
+								  <br>
+								  <div class="input-group">
+									<i class="bx bxs-lock-alt"></i>
+									Fees:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     
+									<input name="fee" type="text" value={{dts.fee}}/>
+								  </div>
+								  <br>
+								  <button name="editProfileD" value="editProfileD">Submit</button>
+								</form>
+								  			{% endif %}																				
+										{% endfor %}                           							
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

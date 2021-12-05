@@ -1,0 +1,116 @@
+{% extends "layouts/baseP.html" %}
+
+{% block title %} Patient's Dashboard {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+                        <!--[ daily sales section ] start-->
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card daily-sales">
+                                <div class="card-block">
+                                    <h6 class="mb-4">Take Suicide Test</h6>
+                                    <div class="progress m-t-30" style="height: 7px;">
+                                        <div class="progress-bar progress-c-theme" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+									<br><br>
+									<a href="{% url 'suicide_test' patient_id=patient_id %}" class="label theme-bg text-white f-12">Start Test</a>		
+                                </div>
+                            </div>
+                        </div>
+                        <!--[ daily sales section ] end-->
+                        <!--[ Profile section ] starts-->
+                        <div class="col-md-12 col-xl-4">
+                            <div class="card yearly-sales">
+								<div class="card-block">
+									<div class="row d-flex align-items-center">
+										{% for pts in pt %}
+											{% if pts.user_id == patient_id %}
+												<a href="{% url 'editProfileP' patient_id=patient_id %}" class="label theme-bg text-white f-12">Edit Profile</a>		
+                    
+												<div class="col-9">
+													<h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>{{pts.name}}</h3>
+												</div> 
+												<div class="col-3">													
+													{%if pts.image %}
+														<a href="{% url 'uploadP' patient_id=pts.user_id %}"><img class="rounded-circle" style="width:50px;" src="/static/assets/images/user/{{pts.image}}" alt="activity-user"></a>
+													{% else %}
+														<a href="{% url 'uploadP' patient_id=pts.user_id %}"><img class="rounded-circle" style="width:50px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></a>
+													{% endif %}
+												</div>
+											{% endif %}											
+										{% endfor %}                           
+									</div>
+								</div>
+							</div>
+                        </div>
+                        <!--[ Profile section ] end-->
+                        <!--[ Recent Users ] start-->
+                        <div class="col-xl-8 col-md-6">
+                            <div class="card Recent-Users">
+                                <div class="card-header">
+                                    <h5>Your Appointment's</h5>
+                                </div>
+                                <div class="card-block px-0 py-3">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <tbody>
+												{% for apts in apt %}
+													{% if apts.patient_id == patient_id %}
+														{% for dts in dt %}
+															{% if dts.user_id == apts.doctor_id %}
+																<tr class="unread">
+																	<td>
+																		{%if dts.image %}
+																			<img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/{{dts.image}}" alt="activity-user">
+																		{% else %}
+																			<img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user">
+																		{% endif %}
+																	</td>
+																	<td>
+																	<h6 class="mb-1">{{dts.name}}</h6>
+																	<p class="m-0">{{dts.workingAddress}}</p>
+																	</td>
+																	<td>
+																		<h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{apts.date}}&nbsp;&nbsp;{{apts.time}}</h6>
+																	</td>
+																	<td><a href="#!" class="label theme-bg2 text-white f-12">Cancel</a>
+																	<a href="{% url 'chatP' from_id=patient_id to_id=dts.user_id pd=1 %}" class="label theme-bg text-white f-12">Chat</a>
+																	<a href="{% url 'videoP' from_id=patient_id to_id=dts.user_id pd=1 %}" class="label theme-bg text-white f-12">Video</a></td>
+																	</td>
+																</tr>			
+															{% endif %}											
+														{% endfor %}
+													{% endif %}											
+												{% endfor %}   												
+                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						
+                        <!--[ Recent Users ] end-->
+
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

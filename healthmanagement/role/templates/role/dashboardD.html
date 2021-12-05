@@ -1,0 +1,365 @@
+{% extends "layouts/baseD.html" %}
+
+{% block title %} Doctor's Dashboard {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style>	
+.event a {
+    background-color: #5FBA7D !important;
+    color: #ffffff !important;
+}
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">					
+					<table style="width:100%;padding: 25px; margin: 0 auto; font-family:'Open Sans', 'Helvetica', 'Arial';">
+						<tr>
+							<td>
+								<h1>Dashboard</h1>
+							</td>
+							<td align="right"> 
+								<table>
+								<tr>
+								<td><img style="width:20px;" src="/static/assets/images/icon/calendar.png" alt="activity-user">&nbsp;&nbsp;&nbsp;</td>			
+								<td><h3>{% now "l,   M. d-Y" %}</h3></td>
+								</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+					<hr>
+					<br><br>
+                        
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+						<!--[ Number of Patients section ] start-->
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card daily-sales col-9" >
+                                <div class="card-block">
+									<h6 class="mb-4">Total Patients</h6>
+                                    <div class="progress-circle p10">
+									  <span> {{ total_patients }}</span>
+									  <div class="left-half-clipper">
+										<div class="first50-bar"></div>
+										<div class="value-bar"></div>
+									  </div>
+									</div>
+                                        <div class="col-9 text-right">
+                                            <p class="m-b-0">Woman 36%</p>
+                                        </div>
+                                        <div class="col-9 text-right">
+                                            <p class="m-b-0">Man 64%</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--[ Number of Patients section ] end-->
+                        <!--[ New Old Patients section ] starts-->
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card Monthly-sales">
+                                <div class="card-block">
+							        			
+                                    <h6 class="mb-4">New Patients</h6>
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-9">
+                                            <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-up text-c-green f-30 m-r-10"></i>54</h3>
+                                        </div>
+                                        <div class="col-3 text-right">
+                                            <p class="m-b-0">+36%</p>
+                                        </div>
+                                    </div>
+									<hr>
+									<h6 class="mb-4">Old Patients</h6>
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-9">
+                                            <h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather icon-arrow-down text-c-red f-30 m-r-10"></i>32</h3>
+                                        </div>
+                                        <div class="col-3 text-right">
+                                            <p class="m-b-0">-02%</p>
+                                        </div>
+                                    </div>
+                             
+                                </div>
+                            </div>
+                        </div>
+                        <!--[ New Old Patients section ] end-->
+                        <!--[ Profile section ] starts-->
+                        <div class="col-md-12 col-xl-4">
+                            <div class="card yearly-sales">
+                                <div class="card-block">
+                                    <div class="row d-flex align-items-center">
+										{% for dts in dt %}
+											{% if dts.user_id == doctor_id %}
+												<a href="{% url 'editProfileD' doctor_id=doctor_id %}" class="label theme-bg text-white f-12">Edit Profile</a>		
+                    
+												<div class="col-9">
+													<h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather text-c-green f-30 m-r-10"></i>{{dts.name}}</h3>
+												</div> 
+												<div class="col-9">
+													<h3 class="f-w-300 d-flex align-items-center  m-b-0"><i class="feather text-c-green f-30 m-r-10"></i>{{dts.workingAddress}}</h3>
+												</div> 
+												<div class="col-3">													
+													{%if dts.image %}
+														<a href="{% url 'uploadD' doctor_id=dts.user_id %}"><img class="rounded-circle" style="width:50px;" src="/static/assets/images/user/{{dts.image}}" alt="activity-user"></a>
+													{% else %}
+														<a href="{% url 'uploadD' doctor_id=dts.user_id %}"><img class="rounded-circle" style="width:50px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></a>
+													{% endif %}
+												</div>
+											{% endif %}											
+										{% endfor %}                           
+                                    </div>
+									<h6 class="col-9 text-right">Your Activity Today</h6>
+                                    <h1 class="col-9 text-right">86%</h1>        
+                                </div>
+                            </div>
+                        </div>
+                        <!--[ Profile section ] end-->
+						<!--[ Your Appointments Tab ] start-->
+						<div class="col-xl-8 col-md-12 m-b-30">
+                            <h5>Your Appointments</h5><hr>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Today</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active show" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">This Week</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">All</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+								<!--[ Today Tab ] start-->
+                                <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Patient</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Mode</th>
+                                                <th>Status</th>
+                                                <th class="text-right"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+										
+                                            <tr> 
+												{% for apts in apt %}
+													{% if apts.doctor_id == doctor_id %}
+														{% for pts in pt %}
+															{% if pts.user_id == apts.patient_id %}
+															{% now "Y-m-d" as todays_date %}
+															{% if todays_date == apts.date|date:"Y-m-d" %}
+																	<tr class="unread">
+																		<td>
+																			{%if pts.image %}
+																				<h6 class="m-0"><img class="rounded-circle m-r-10" style="width:40px;" src="/static/assets/images/user/{{pts.image}}" alt="activity-user">{{pts.name}}</h6>
+																			{% else %}
+																				<h6 class="m-0"><img class="rounded-circle m-r-10" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user">{{pts.name}}</h6>
+																			{% endif %}
+																		</td>
+																		<td>
+																			<h6 class="m-0">{{apts.date}}</h6>
+																		</td>
+																		<td>
+																			<h6 class="m-0">{{apts.time}}</h6>
+																		</td>
+																		<td>
+																			<h6 class="m-0">{{apts.how}}</h6>
+																		</td>
+																		<td>
+																			<a href="#!" class="label theme-bg2 text-white f-12">Reject</a>
+																			<a href="#!" class="label theme-bg text-white f-12">Approve</a>
+																			<a href="{% url 'chatD' from_id=doctor_id to_id=pts.user_id pd=2 %}" class="label theme-bg2 text-white f-12">Chat</a>
+																		</td>
+																	</tr>			
+																{% endif %}
+															{% endif %}															
+														{% endfor %}
+													{% endif %}											
+												{% endfor %}
+											</tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--[ Today Tab ] end-->
+                                <!--[ This Week Tab ] start-->
+                                <div class="tab-pane fade active show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                 <th>Patient</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Mode</th>
+                                                <th>Status</th>
+                                                <th class="text-right"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                              <tr>    
+												{% for apts in apt %}
+													{% if apts.doctor_id == doctor_id %}
+														{% for pts in pt %}
+															{% if pts.user_id == apts.patient_id %}
+																	<tr class="unread">
+																		<td>
+																			{%if pts.image %}
+																				<h6 class="m-0"><img class="rounded-circle m-r-10" style="width:40px;" src="/static/assets/images/user/{{pts.image}}" alt="activity-user">{{pts.name}}</h6>
+																			{% else %}
+																				<h6 class="m-0"><img class="rounded-circle m-r-10" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user">{{pts.name}}</h6>
+																			{% endif %}
+																		</td>
+																		<td>
+																			<h6 class="m-0">{{apts.date}}</h6>
+																		</td>
+																		<td>
+																			<h6 class="m-0">{{apts.time}}</h6>
+																		</td>
+																		<td>
+																			<h6 class="m-0">{{apts.how}}</h6>
+																		</td>
+																		<td>
+																			<a href="#!" class="label theme-bg2 text-white f-12">Reject</a>
+																			<a href="#!" class="label theme-bg text-white f-12">Approve</a>
+																			<a href="{% url 'chatD' from_id=doctor_id to_id=pts.user_id pd=2 %}" class="label theme-bg2 text-white f-12">Chat</a>
+																		</td>
+																</tr>			
+													
+															{% endif %}															
+														{% endfor %}
+													{% endif %}											
+												{% endfor %}
+											</tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+								<!--[ This Week Tab ] end-->
+                                <!--[ All Tab ] start-->
+                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                               <th>Patient</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Mode</th>
+                                                <th>Status</th>
+                                                <th class="text-right"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>    
+												{% for apts in apt %}
+													{% if apts.doctor_id == doctor_id %}
+														{% for pts in pt %}
+															{% if pts.user_id == apts.patient_id %}							
+																<tr class="unread">
+																	<td>
+																		{%if pts.image %}
+																			<h6 class="m-0"><img class="rounded-circle m-r-10" style="width:40px;" src="/static/assets/images/user/{{pts.image}}" alt="activity-user">{{pts.name}}</h6>
+																		{% else %}
+																			<h6 class="m-0"><img class="rounded-circle m-r-10" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user">{{pts.name}}</h6>
+																		{% endif %}
+																	</td>
+																	<td>
+																		<h6 class="m-0">{{apts.date}}</h6>
+																	</td>
+																	<td>
+																		<h6 class="m-0">{{apts.time}}</h6>
+																	</td>
+																	<td>
+																		<h6 class="m-0">{{apts.how}}</h6>
+																	</td>
+																	<td>
+																		<a href="#!" class="label theme-bg2 text-white f-12">Reject</a>
+																		<a href="#!" class="label theme-bg text-white f-12">Approve</a>
+																		<a href="{% url 'chatD' from_id=doctor_id to_id=pts.user_id pd=2 %}" class="label theme-bg2 text-white f-12">Chat</a>
+																	</td>
+																</tr>														
+															{% endif %}															
+														{% endfor %}
+													{% endif %}											
+												{% endfor %}
+											</tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+								<!--[ All Tab ] end-->
+                            </div>
+                        </div>
+						<!--[ Your Appointments Tab ] end-->
+						<div class="col-xl-4 col-md-6">
+                            <div class="card card-event">
+                                <div class="card-block">
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="col">
+                                            <h5 class="m-0">Upcoming Events</h5>
+                                        </div>
+										<br><br>
+										<div id="datepicker"></div>
+
+									</div>
+								</div>
+
+							</div>
+                            <div class="card">
+								<div id="board" class="section grey lighten-3" style="height: 68vh; padding: 5px; overflow-y: scroll">
+									{% block messages %}
+										{% for chats in chat %}
+											{% if chats.to_id == doctor_id %}
+												<a href="{% url 'chatD' from_id=chats.to_id to_id=chats.from_id pd=2 %}" class="label theme-bg text-white f-12">Chat Request</a></td>
+												<br><br>				
+											{% endif %}																				
+										{% endfor %}                           							
+									{% endblock %}
+								</div>
+								
+							</div>
+                        </div>
+                        
+                    </div>
+
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+<script>
+$( function() {
+    // An array of dates
+    var eventDates = {};
+    eventDates[ new Date( '11/22/2021' )] = new Date( '11/22/2021' );
+    
+    // datepicker
+    $('#datepicker').datepicker({
+        beforeShowDay: function( date ) {
+            var highlight = eventDates[date];
+            if( highlight ) {
+                 return [true, "event", 'Tooltip text'];
+            } else {
+                 return [true, '', ''];
+            }
+        }
+    });
+});
+</script>
+
+{% endblock javascripts %}

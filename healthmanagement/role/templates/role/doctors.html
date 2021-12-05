@@ -1,0 +1,69 @@
+{% extends "layouts/baseP.html" %}
+
+{% block title %} Patient's Dashboard {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+					
+                        <!--[ Doctors ] start-->
+                        <div class="col-xl-8 col-md-6">
+                            <div class="card Recent-Users">
+                                <div class="card-header">
+                                    <h5>Doctors</h5>
+                                </div>
+                                <div class="card-block px-0 py-3">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <tbody>
+												{% for dts in dt %}
+													<tr class="unread">
+														{%if dts.image %}
+															<td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/{{dts.image}}" alt="activity-user"></td>
+														{% else %}
+															<td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td>
+														{% endif %}
+														<td>
+															<h6 class="mb-1">{{dts.name}}</h6>
+															<p class="m-0">{{dts.workingAddress}}</p>
+														</td>
+														<td>
+															<h6 class="text-muted"><i class="text-c-green f-10 m-r-15"></i>{{dts.specialization}}</h6>
+														</td>
+														<td>
+															<h6 class="text-muted"><i class="text-c-green f-10 m-r-15"></i>{{dts.fee}}</h6>
+														</td>
+														<td>									
+															<a href="{% url 'get_appointment' doctor_id=dts.user_id %}" class="label theme-bg text-white f-12">Get Appointment</a>
+														</td>
+													</tr>
+												{% endfor %}
+											</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--[ Doctors ] end-->
+						
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

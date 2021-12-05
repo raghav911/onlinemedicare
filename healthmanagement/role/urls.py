@@ -1,0 +1,25 @@
+from django.urls import path
+from .views import home, registerP,registerD, dashboardP , dashboardD , logout, doctors , patients , charts , get_appointment , breadcrumb_pagination , uploadD , uploadP , chatP , chatD , suicide_test , editProfileD , editProfileP , prescription , prescriptionP , videoP
+urlpatterns = [
+    path('', home, name='home'),
+    path('registerP/', registerP, name='registerP'),
+    path('registerD/', registerD, name='registerD'),
+    path('dashboardP/',dashboardP, name='dashboardP'),
+    path('dashboardD/',dashboardD, name='dashboardD'),
+    path('logout/',logout, name='logout'),
+    path('doctors/',doctors, name='doctors'),
+    path('patients/',patients, name='patients'),
+    path('editProfileD/?P<int:doctor_id>/',editProfileD, name='editProfileD'),
+    path('editProfileP/?P<int:patient_id>/',editProfileP, name='editProfileP'),
+    path('prescription/?P<int:patient_id>/',prescription, name='prescription'),
+    path('prescriptionP/',prescriptionP, name='prescriptionP'),
+    path('get_appointment/?P<int:doctor_id>/',get_appointment, name='get_appointment'),
+    path('charts/',charts, name='charts'),
+    path('breadcrumb_pagination/',breadcrumb_pagination, name='breadcrumb_pagination'),
+    path('uploadD/?P<int:doctor_id>/',uploadD, name='uploadD'),
+    path('uploadP/?P<int:patient_id>/',uploadP, name='uploadP'),
+    path('chatP/?P<int:from_id>/?P<int:to_id>/?P<int:pd>/',chatP, name='chatP'),
+    path('videoP/?P<int:from_id>/?P<int:to_id>/?P<int:pd>/',videoP, name='videoP'),
+    path('chatD/?P<int:from_id>/?P<int:to_id>/?P<int:pd>/',chatD, name='chatD'),
+    path('suicide_test/?P<int:patient_id>/',suicide_test, name='suicide_test'),
+]
